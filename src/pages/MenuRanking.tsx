@@ -5,7 +5,7 @@ import { MenuRankingItem, RankingPeriod } from '../interface/menu';
 import RankingList from '../components/ranking/RankingList';
 
 const MenuRanking = () => {
-  const [period, setPeriod] = useState<RankingPeriod>('weekly');
+  const [period, setPeriod] = useState<RankingPeriod>('WEEKLY');
   const [topRankings, setTopRankings] = useState<MenuRankingItem[]>([]);
   const [bottomRankings, setBottomRankings] = useState<MenuRankingItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -15,8 +15,8 @@ const MenuRanking = () => {
       setLoading(true);
       try {
         const response = await getMenuRankings(period);
-        setTopRankings(response.topRankings);
-        setBottomRankings(response.bottomRankings);
+        setTopRankings(response.data.topRankMenuResponse);
+        setBottomRankings(response.data.bottomRankMenuResponse);
       } catch (error) {
         console.error('랭킹 데이터를 불러오는데 실패했습니다:', error);
       } finally {
@@ -32,10 +32,10 @@ const MenuRanking = () => {
       <RankingHeader>
         <h1>메뉴 랭킹</h1>
         <PeriodToggle>
-          <ToggleButton active={period === 'weekly'} onClick={() => setPeriod('weekly')}>
+          <ToggleButton $active={period === 'WEEKLY'} onClick={() => setPeriod('WEEKLY')}>
             주간
           </ToggleButton>
-          <ToggleButton active={period === 'monthly'} onClick={() => setPeriod('monthly')}>
+          <ToggleButton $active={period === 'MONTHLY'} onClick={() => setPeriod('MONTHLY')}>
             월간
           </ToggleButton>
         </PeriodToggle>
@@ -73,14 +73,14 @@ const PeriodToggle = styled.div`
   padding: 4px;
 `;
 
-const ToggleButton = styled.button<{ active: boolean }>`
+const ToggleButton = styled.button<{ $active: boolean }>`
   padding: 8px 16px;
   border-radius: 16px;
   border: none;
-  background: ${(props) => (props.active ? '#fff' : 'transparent')};
+  background: ${(props) => (props.$active ? '#fff' : 'transparent')};
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: ${(props) => (props.active ? '0 2px 4px rgba(0,0,0,0.1)' : 'none')};
+  box-shadow: ${(props) => (props.$active ? '0 2px 4px rgba(0,0,0,0.1)' : 'none')};
 `;
 
 const RankingsContainer = styled.div`

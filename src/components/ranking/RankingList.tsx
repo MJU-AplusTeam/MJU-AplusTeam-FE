@@ -1,84 +1,96 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MenuRankingItem, RankingType } from '../interface/menu';
+import { MenuRankingItem } from '../../interface/menu';
 
 interface RankingListProps {
   title: string;
   items: MenuRankingItem[];
-  type: RankingType;
+  type: 'top' | 'bottom';
 }
 
-const RankingList = ({ title, items, type }: RankingListProps) => {
+const RankingList: React.FC<RankingListProps> = ({ title, items, type }) => {
   return (
-    <RankingSection>
-      <RankingTitle>{title}</RankingTitle>
-      <RankingListContainer>
-        {items.map((item, index) => (
-          <RankingItem key={item.id}>
-            <Rank>{index + 1}</Rank>
-            <MenuName>{item.name}</MenuName>
-            <Score>{item.score.toFixed(1)}점</Score>
-            <RankChange change={item.rankChange}>
-              {item.rankChange > 0
-                ? `▲${item.rankChange}`
-                : item.rankChange < 0
-                  ? `▼${Math.abs(item.rankChange)}`
-                  : '-'}
+    <Container>
+      <Title>{title}</Title>
+      <List>
+        {items.map((item) => (
+          <ListItem key={item.id}>
+            <Rank>{item.rank}</Rank>
+            <Name>{item.name}</Name>
+            <Score>{item.score.toFixed(1)}</Score>
+            <RankChange $change={item.rankChange}>
+              {item.rankChange > 0 ? '↑' : item.rankChange < 0 ? '↓' : '-'}
             </RankChange>
-          </RankingItem>
+          </ListItem>
         ))}
-      </RankingListContainer>
-    </RankingSection>
+      </List>
+    </Container>
   );
 };
 
-const RankingSection = styled.div`
+const Container = styled.div`
   flex: 1;
   min-width: 300px;
-`;
-
-const RankingTitle = styled.h2`
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: ${(props) => props.theme.colors.primary};
-`;
-
-const RankingListContainer = styled.div`
   background: white;
   border-radius: 12px;
+  padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
 `;
 
-const RankingItem = styled.div`
+const Title = styled.h2`
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.5rem;
+`;
+
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ListItem = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-
-  &:last-child {
-    border-bottom: none;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.2s;
+  cursor: pointer;
+  &:hover {
+    transform: translateX(4px);
   }
 `;
 
-const Rank = styled.span`
+const Rank = styled.div`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ecef;
+  border-radius: 50%;
+  margin-right: 1rem;
   font-weight: bold;
-  width: 40px;
 `;
 
-const MenuName = styled.span`
+const Name = styled.div`
   flex: 1;
+  font-weight: 500;
 `;
 
-const Score = styled.span`
+const Score = styled.div`
   margin: 0 1rem;
   color: #666;
 `;
 
-const RankChange = styled.span<{ change: number }>`
-  color: ${(props) => (props.change > 0 ? '#f00' : props.change < 0 ? '#00f' : '#666')};
-  width: 50px;
-  text-align: right;
+const RankChange = styled.div<{ $change: number }>`
+  color: ${({ $change }) => {
+    if ($change > 0) return '#28a745';
+    if ($change < 0) return '#dc3545';
+    return '#6c757d';
+  }};
+  font-weight: bold;
 `;
 
 export default RankingList;

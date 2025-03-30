@@ -2,15 +2,22 @@ export interface MenuRankingItem {
   id: number;
   name: string;
   score: number;
-  rankChange: number; // 순위 변동
+  rankChange: number;
+  rank: number;
 }
 
-export type RankingPeriod = 'weekly' | 'monthly';
+export type RankingPeriod = 'WEEKLY' | 'MONTHLY';
 
-export type RankingType = 'top' | 'bottom';
-
-export interface MenuRankingResponse {
-  topRankings: MenuRankingItem[];
-  bottomRankings: MenuRankingItem[];
-  period: RankingPeriod;
+export interface MenuRankingData {
+  topRankMenuResponse: MenuRankingItem[];
+  bottomRankMenuResponse: MenuRankingItem[];
 }
+
+export interface ApiResponse<T> {
+  httpStatusCode: number;
+  message: string;
+  data: T;
+  resultType: string;
+}
+
+export interface MenuRankingResponse extends ApiResponse<MenuRankingData> {}
