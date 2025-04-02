@@ -11,15 +11,15 @@ const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { path: '/', label: '대시보드', icon: dashboardIcon },
-    { path: '/llm-analysis', label: 'LLM 분석', icon: llmAnalysisIcon },
-    { path: '/menu-ranking', label: '메뉴 랭킹', icon: menuRankingIcon },
+    { path: '/admin', label: '대시보드', icon: dashboardIcon },
+    { path: '/admin/llm-analysis', label: 'LLM 분석', icon: llmAnalysisIcon },
+    { path: '/admin/menu-ranking', label: '메뉴 랭킹', icon: menuRankingIcon },
   ];
 
   return (
     <SidebarContainer>
       <LogoContainer>
-        <LogoLink to="/">
+        <LogoLink to="/admin">
           <Logo>학식</Logo>
         </LogoLink>
       </LogoContainer>
