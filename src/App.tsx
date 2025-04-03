@@ -14,7 +14,7 @@ const App = () => {
       <Router>
         <Layout>
           <Routes>
-            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/menu-ranking" element={<MenuRanking />} />
             <Route path="/admin/llm-analysis" element={<LLMAnalysis />} />
           </Routes>

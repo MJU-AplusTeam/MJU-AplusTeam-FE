@@ -11,7 +11,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { path: '/admin', label: '대시보드', icon: dashboardIcon },
+    { path: '/admin/dashboard', label: '대시보드', icon: dashboardIcon },
     { path: '/admin/llm-analysis', label: 'LLM 분석', icon: llmAnalysisIcon },
     { path: '/admin/menu-ranking', label: '메뉴 랭킹', icon: menuRankingIcon },
   ];

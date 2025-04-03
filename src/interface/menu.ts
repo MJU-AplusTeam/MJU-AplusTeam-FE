@@ -20,4 +20,13 @@ export interface ApiResponse<T> {
   resultType: string;
 }
 
+export interface RatingData {
+  type: 'weekly' | 'monthly';
+  five: number;
+  four: number;
+  three: number;
+  two: number;
+  one: number;
+}
+
 export interface MenuRankingResponse extends ApiResponse<MenuRankingData> {}
