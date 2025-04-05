@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { getMenuRankings } from '../api/menuService';
 import { MenuRankingItem, RankingPeriod } from '../interface/menu';
 import RankingList from '../components/ranking/RankingList';
+import TrendingMenus from '../components/ranking/TrendingMenus';
+import WantedMenus from '../components/ranking/WantedMenus';
 
 const MenuRanking = () => {
   const [period, setPeriod] = useState<RankingPeriod>('WEEKLY');
@@ -44,10 +46,14 @@ const MenuRanking = () => {
       {loading ? (
         <LoadingText>로딩 중...</LoadingText>
       ) : (
-        <RankingsContainer>
-          <RankingList title="인기 메뉴 TOP 5" items={topRankings} type="top" />
-          <RankingList title="하위 메뉴 TOP 5" items={bottomRankings} type="bottom" />
-        </RankingsContainer>
+        <>
+          <RankingsContainer>
+            <RankingList title="인기 메뉴 TOP 5" items={topRankings} type="top" />
+            <RankingList title="하위 메뉴 TOP 5" items={bottomRankings} type="bottom" />
+          </RankingsContainer>
+          <TrendingMenus period={period} />
+          <WantedMenus period={period} />
+        </>
       )}
     </MenuRankingContainer>
   );
